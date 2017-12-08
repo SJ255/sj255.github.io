@@ -1,17 +1,17 @@
 document.getElementById("b1").addEventListener("click",throttle(inccnt,2000));//throttle function is called when the first button is clicked
 
 function throttle(fn, wait) {
-  var time = Date.now();
-  return function() {
-    if (parseInt(document.getElementById("cnt").textContent)==0||(time + wait - Date.now()) < 0) /*Execute function if it is the first execution 
-    																							or if previous execution was atleast 'wait' milliseconds before*/
+  var k=1;
+  return function(){
+    if(k==1)
     {
-      fn();
-      time = Date.now();
+      fn();  //Execute fn only if k=1
+      k=0;
+      setTimeout(function(){k=1;},wait);// k will become 1 only after 'wait' seconds
     }
   }
-}
-//Javascript closure has been used
+}//Javascript closure has been used
+
 
 function inccnt()  //Function to increase the content of main panel
 {
